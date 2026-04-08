@@ -1,0 +1,95 @@
+.gridContainer {
+  width: 100%;
+}
+
+.daysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary-blue);
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.dayCell {
+  aspect-ratio: 1;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.dayCell:hover:not(.empty) {
+  background: #f8f9fa;
+  transform: scale(1.05);
+  z-index: 5;
+  box-shadow: var(--shadow-sm);
+}
+
+.dayNumber {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.empty {
+  background: #fafafa;
+  cursor: default;
+}
+
+.empty .dayNumber {
+  color: #ccc;
+}
+
+/* Range Selection States */
+.isSelected {
+  background: var(--primary-blue) !important;
+}
+
+.isSelected .dayNumber {
+  color: white;
+}
+
+.isInRange {
+  background: rgba(0, 129, 201, 0.1) !important;
+}
+
+.isStart {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.isEnd {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.today {
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+}
+
+.hasNote::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-blue);
+  border-radius: 50%;
+}
