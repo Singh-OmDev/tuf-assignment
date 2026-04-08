@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📅 Interactive Wall Calendar - Frontend Challenge
 
-## Getting Started
+A polished, high-fidelity React/Next.js calendar component that bridges the gap between a physical wall calendar and a modern digital planning tool. Built as part of a Frontend Engineering Challenge.
 
-First, run the development server:
+![Calendar Desktop Preview](https://via.placeholder.com/900x600?text=Interactive+Wall+Calendar+Desktop+View)
 
+## 🚀 Key Features
+
+### **🎨 Physical Wall Aesthetic**
+- **Tactile Details**: spiral binder rings at the top with realistic shadows and paper textures.
+- **Dynamic Imagery**: High-resolution hero sections that serve as the visual anchor.
+- **Geometric Design**: Custom CSS `clip-path` overlays for a clean, modern transition between imagery and interactive grid.
+
+### **✨ Interactive Range Selector**
+- **Fluid Selection**: Click a start and end date to define an interval.
+- **Visual Sweep**: Real-time highlighting of intermediate days during selection.
+- **Persistence**: Selections are saved to `localStorage`, so your plans persist across sessions.
+
+### **📓 Integrated Dual-Notes System**
+- **Lined Paper UI**: A "General Memos" section styled like authentic ruled paper.
+- **Per-Date Journaling**: A "Daily Note" system that allows unique logs for every single date in the month.
+- **Auto-Save**: Everything you type is persisted instantly without a backend.
+
+### **🌈 Premium Experience**
+- **Theme Switching**: Toggle between **Adventure** (Mountain Blue), **Forest** (Teal), and **Sunset** (Warm Orange) palettes.
+- **Holiday System**: Pre-loaded 2026 holiday markers (e.g., Earth Day) with custom icons.
+- **PDF/Print Engine**: Optimized `@media print` styles for generating professional-grade wall calendar printouts.
+- **Animations**: Subtle 3D "flip-in" transition on page load for a physical feel.
+
+---
+
+## 🛠️ Technical Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: Vanilla CSS Modules (for maximum design control and flexibility)
+- **Date Logic**: [date-fns](https://date-fns.org/)
+- **State**: React Hooks (useState, useEffect) with LocalStorage sync
+
+---
+
+## 📦 Getting Started
+
+### **1. Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/interactive-calendar.git
+cd interactive-calendar
 ```
 
+### **2. Install dependencies**
+```bash
+npm install
+```
+
+### **3. Run the development server**
+```bash
+npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎨 Design Decisions
 
-## Learn More
+- **Why Vanilla CSS?**: To achieve the highly specific "Wall Calendar" aesthetic (rings, geometric cuts, paper textures), Vanilla CSS Modules were chosen over Tailwind to ensure pixel-perfect control and to demonstrate deep CSS architecture skills.
+- **Responsive Strategy**: The layout uses CSS Grid to seamlessly pivot from a side-by-side Desktop view to a vertically stacked Mobile view without losing feature parity.
+- **Zero Backend**: To focus purely on frontend engineering, persistence is handled via `localStorage`, making the app fully functional and portable.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+This project is open-source and available under the [MIT License](LICENSE).
