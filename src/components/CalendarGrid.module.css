@@ -83,13 +83,19 @@
   border: 2px solid var(--primary-blue);
 }
 
-.hasNote::after {
-  content: '';
+.holidayIcon {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 6px;
-  height: 6px;
+  top: 2px;
+  left: 2px;
+  font-size: 0.75rem;
+}
+
+.noteIndicator {
+  position: absolute;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
   background: var(--primary-blue);
   border-radius: 50%;
 }
+

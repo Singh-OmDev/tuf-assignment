@@ -9,6 +9,19 @@
     0 50px 100px rgba(0,0,0,0.1);
   overflow: visible;
   margin-top: 40px;
+  animation: flipIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateX(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
 }
 
 .wallContainer::before {

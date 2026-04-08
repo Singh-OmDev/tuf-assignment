@@ -1,66 +1,97 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import CalendarWall from '@/components/CalendarWall';
+import HeroSection from '@/components/HeroSection';
+import CalendarGrid from '@/components/CalendarGrid';
+import NotesSection from '@/components/NotesSection';
+import styles from '@/components/MainContent.module.css';
+
+const HOLIDAYS = [
+  { date: new Date(2026, 3, 5), name: 'Easter Sunday' },
+  { date: new Date(2026, 3, 12), name: 'Global Adventure Day' },
+  { date: new Date(2026, 3, 22), name: 'Earth Day' },
+];
 
 export default function Home() {
+  const [selectedStart, setSelectedStart] = useState<Date | null>(null);
+  const [selectedEnd, setSelectedEnd] = useState<Date | null>(null);
+  const [theme, setTheme] = useState('adventure');
+  const [dailyNotes, setDailyNotes] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const savedStart = localStorage.getItem('calendar-selection-start');
+    const savedEnd = localStorage.getItem('calendar-selection-end');
+    const savedTheme = localStorage.getItem('calendar-theme');
+    const savedDailyNotes = localStorage.getItem('calendar-daily-notes');
+
+    if (savedStart) setSelectedStart(new Date(savedStart));
+    if (savedEnd) setSelectedEnd(new Date(savedEnd));
+    if (savedTheme) setTheme(savedTheme);
+    if (savedDailyNotes) setDailyNotes(JSON.parse(savedDailyNotes));
+  }, []);
+
+  const handleRangeSelect = (start: Date | null, end: Date | null) => {
+    setSelectedStart(start);
+    setSelectedEnd(end);
+    if (start) localStorage.setItem('calendar-selection-start', start.toISOString());
+    else localStorage.removeItem('calendar-selection-start');
+    
+    if (end) localStorage.setItem('calendar-selection-end', end.toISOString());
+    else localStorage.removeItem('calendar-selection-end');
+  };
+
+  const handleUpdateDailyNote = (date: Date, text: string) => {
+    const key = date.toISOString().split('T')[0];
+    const newNotes = { ...dailyNotes, [key]: text };
+    setDailyNotes(newNotes);
+    localStorage.setItem('calendar-daily-notes', JSON.stringify(newNotes));
+  };
+
+  const changeTheme = (newTheme: string) => {
+    setTheme(newTheme);
+    localStorage.setItem('calendar-theme', newTheme);
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main style={{ paddingBottom: '100px' }} data-theme={theme}>
+      <div className="theme-switcher">
+        <button onClick={() => changeTheme('adventure')}>Adventure</button>
+        <button onClick={() => changeTheme('forest')}>Forest</button>
+        <button onClick={() => changeTheme('sunset')}>Sunset</button>
+        <button className="print-btn" onClick={() => window.print()}>Print / PDF</button>
+      </div>
+
+      <CalendarWall>
+        <HeroSection theme={theme} />
+        <div className={styles.mainContent}>
+          <NotesSection 
+            selectedStart={selectedStart} 
+            selectedEnd={selectedEnd} 
+            dailyNotes={dailyNotes}
+            onUpdateDailyNote={handleUpdateDailyNote}
+            holidays={HOLIDAYS}
+          />
+          <CalendarGrid 
+            onRangeSelect={handleRangeSelect}
+            selectedStart={selectedStart}
+            selectedEnd={selectedEnd}
+            holidays={HOLIDAYS}
+            hasNotes={Object.keys(dailyNotes).filter(k => dailyNotes[k].trim() !== '')}
+          />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </CalendarWall>
+
+
+      
+      <div style={{ 
+        marginTop: '40px', 
+        textAlign: 'center', 
+        color: '#7f8c8d', 
+        fontSize: '0.9rem' 
+      }}>
+        <p>Tip: Click a date to start selection, click another to set the range.</p>
+      </div>
+    </main>
   );
 }
